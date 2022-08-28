@@ -217,22 +217,28 @@
           </div>
         </div>
 
-        <form>
+        <form name="pemesanan-mengproject">
           <div class="w-full lg:w-2/3 lg:mx-auto">
             <div class="w-full px-4 mb-8">
               <label for="name" class="text-base font-bold text-primary">Nama</label>
-              <input type="text" id="name" class="w-full bg-slate-300 text-dark p-3 rounded-md focus:outline-none focus:ring-primary focus:ring-1 focus:border-primary" />
+              <input type="text" id="name" class="w-full bg-slate-300 text-dark p-3 rounded-md focus:outline-none focus:ring-primary focus:ring-1 focus:border-primary" name="nama" />
             </div>
             <div class="w-full px-4 mb-8">
               <label for="email" class="text-base font-bold text-primary">Email</label>
-              <input type="email" id="email" class="w-full bg-slate-300 text-dark p-3 rounded-md focus:outline-none focus:ring-primary focus:ring-1 focus:border-primary" />
+              <input type="email" id="email" class="w-full bg-slate-300 text-dark p-3 rounded-md focus:outline-none focus:ring-primary focus:ring-1 focus:border-primary" name="email" />
             </div>
             <div class="w-full px-4 mb-8">
               <label for="message" class="text-base font-bold text-primary">Pesan</label>
-              <textarea type="text" id="message" class="w-full bg-slate-300 text-dark p-3 rounded-md focus:outline-none focus:ring-primary focus:ring-1 focus:border-primary h-32"></textarea>
+              <textarea type="text" id="message" class="w-full bg-slate-300 text-dark p-3 rounded-md focus:outline-none focus:ring-primary focus:ring-1 focus:border-primary h-32" name="pesan"></textarea>
             </div>
             <div class="w-full px-4">
-              <button class="text-base font-semibold text-white bg-primary py-3 px-8 rounded-full hover:opacity-80 hover:shadow-lg transition duration-500">Kirim</button>
+              <button
+                id="submit"
+                type="submit"
+                class="text-base font-semibold text-white bg-primary py-3 px-8 rounded-full hover:opacity-80 hover:shadow-lg transition duration-500 active:bg-cyan-700 focus:outline-none focus:ring focus:ring-cyan-300"
+              >
+                Kirim
+              </button>
             </div>
           </div>
         </form>
@@ -339,5 +345,21 @@
     </footer>
     <!-- footer end -->
     <script src="dist/js/script.js"></script>
+
+    <script>
+      const scriptURL = "https://script.google.com/macros/s/AKfycbxs9kgHir5JHv1f_eZaSBn8p1cobv1PGh9LNuoODWe2ppKcNF-G5vWDwB6ueA08Cei48w/exec";
+      const form = document.forms["pemesanan-mengproject"];
+
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        fetch(scriptURL, { method: "POST", body: new FormData(form) })
+          .then((response) => {
+            console.log("Success!", response);
+            form.reset();
+          })
+          .catch((error) => console.error("Error!", error.message));
+        form.reset();
+      });
+    </script>
   </body>
 </html>
